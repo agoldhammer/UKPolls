@@ -99,7 +99,7 @@ def plot(df: pd.DataFrame, out_path: str, title: str, subtitle_prefix: str = "")
         series = df[party].dropna() if party in df.columns else pd.Series(dtype=float)
         if series.empty:
             continue
-        ax.scatter(series.index, series.values, s=5, color=color, alpha=0.15, linewidths=0)
+        ax.scatter(series.index, series.values, s=16, color=color, alpha=0.35, linewidths=0)
         smoothed = series.rolling(ROLLING_WINDOW).mean()
         ax.plot(smoothed.index, smoothed.values, color=color, linewidth=2, solid_capstyle="round")
         label_targets[party] = float(smoothed.iloc[-1])
