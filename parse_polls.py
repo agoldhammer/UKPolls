@@ -64,7 +64,45 @@ def strip_attrs(s):
     return s
 
 
+def unwrap_hidden(s):
+    """Replace each {{Hidden|header|content|...}} template with its first
+    (header) parameter -- e.g. an Others cell of {{Hidden|1%|...breakdown...}}
+    becomes just "1%". Splits parameters at top-level pipes only, since the
+    collapsible content routinely nests {{Nowrap|..}} and [[..|..]]."""
+    while True:
+        m = re.search(r"\{\{\s*[Hh]idden\s*\|", s)
+        if not m:
+            return s
+        start = m.start()
+        i = m.end()
+        depth = 0
+        param_end = None
+        while i < len(s):
+            if s[i : i + 2] in ("{{", "[["):
+                depth += 1
+                i += 2
+                continue
+            if s[i : i + 2] == "]]":
+                depth -= 1
+                i += 2
+                continue
+            if s[i : i + 2] == "}}":
+                if depth == 0:
+                    break
+                depth -= 1
+                i += 2
+                continue
+            if s[i] == "|" and depth == 0 and param_end is None:
+                param_end = i
+            i += 1
+        if i >= len(s):  # unbalanced template; leave as-is
+            return s
+        header = s[m.end() : param_end if param_end is not None else i]
+        s = s[:start] + header.strip() + s[i + 2 :]
+
+
 def clean_text(s):
+    s = unwrap_hidden(s)
     s = re.sub(r"<!--.*?-->", "", s, flags=re.DOTALL)
     s = re.sub(r"<ref[^>]*>.*?</ref>", "", s, flags=re.DOTALL)
     s = re.sub(r"<ref[^>]*/>", "", s)
