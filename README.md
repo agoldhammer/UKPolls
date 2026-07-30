@@ -16,7 +16,7 @@ current state of the race:
 ![Voting intention, last 6 months](uk_polls_recent.png)
 
 A third chart compares pollsters ("house effects"): each row is a pollster's
-most recent poll from the past 90 days, sorted by Reform UK share, with the
+most recent poll from the past 90 days, sorted by poll date, with the
 all-pollster rolling average on top for reference:
 
 ![Current polls by pollster](uk_polls_pollsters.png)

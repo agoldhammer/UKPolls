@@ -172,7 +172,7 @@ def plot(df: pd.DataFrame, out_path: str, title: str, subtitle_prefix: str = "")
 def plot_pollsters(df: pd.DataFrame, out_path: str) -> None:
     cutoff = df.index.max() - pd.Timedelta(days=90)
     latest = df[df.index >= cutoff].reset_index().groupby("pollster").last()
-    latest = latest.sort_values("Ref")
+    latest = latest.sort_values("date")
 
     avg = latest_averages(df)
 
@@ -230,7 +230,7 @@ def plot_pollsters(df: pd.DataFrame, out_path: str) -> None:
     fig.text(
         0.03, 0.905,
         f"Latest poll from each pollster in the past 90 days (as of {df.index.max():%d %b %Y}), "
-        f"sorted by Reform share · average = {ROLLING_WINDOW} rolling average across all pollsters",
+        f"sorted by poll date · average = {ROLLING_WINDOW} rolling average across all pollsters",
         fontsize=10, color=MUTED, va="top",
     )
     fig.text(
