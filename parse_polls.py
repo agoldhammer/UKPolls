@@ -129,11 +129,16 @@ def cells_from_block(block, marker):
     beginning with `marker`, or at `marker*2` on the same line -- but only
     outside {{ }} / [[ ]] / <ref>...</ref> nesting, since citation templates
     routinely span multiple lines and contain bare pipes of their own that
-    must not be mistaken for cell separators."""
+    must not be mistaken for cell separators.
+
+    Empty cells are preserved: editors sometimes leave a party's cell blank
+    rather than writing {{sdash}}, and dropping it would silently shift every
+    later value one column to the left."""
     cells = []
     current = []
     depth = 0
     at_line_start = True
+    started = False
     i, n = 0, len(block)
     while i < n:
         m = REF_OPEN.match(block, i)
@@ -165,15 +170,17 @@ def cells_from_block(block, marker):
             continue
         ch = block[i]
         if depth == 0 and at_line_start and ch == marker:
-            if "".join(current).strip():
+            if started:
                 cells.append("".join(current))
+            started = True
             current = []
             i += 1
             at_line_start = False
             continue
         if depth == 0 and two == marker * 2:
-            if "".join(current).strip():
+            if started:
                 cells.append("".join(current))
+            started = True
             current = []
             i += 2
             at_line_start = False
@@ -181,9 +188,13 @@ def cells_from_block(block, marker):
         at_line_start = ch == "\n"
         current.append(ch)
         i += 1
-    if "".join(current).strip():
+    if started:
         cells.append("".join(current))
-    return [c for c in cells if c.strip() and c.strip() != "|}"]
+    # Text before the first marker is inter-row whitespace, never a cell; the
+    # last block of a table also trails the closing "|}" markup.
+    while cells and cells[-1].strip() in ("", "}", "|}"):
+        cells.pop()
+    return cells
 
 
 def header_columns(header_block):
