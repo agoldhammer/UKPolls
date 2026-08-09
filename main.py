@@ -171,7 +171,11 @@ def plot(df: pd.DataFrame, out_path: str, title: str, subtitle_prefix: str = "")
 
 def plot_pollsters(df: pd.DataFrame, out_path: str) -> None:
     cutoff = df.index.max() - pd.Timedelta(days=90)
-    latest = df[df.index >= cutoff].reset_index().groupby("pollster").last()
+    # tail(1), not last(): groupby.last() takes the last non-NaN value per
+    # column independently, so a pollster whose newest poll leaves a party
+    # blank would inherit that party's number from its own previous poll.
+    recent = df[df.index >= cutoff].reset_index().sort_values("date")
+    latest = recent.groupby("pollster").tail(1).set_index("pollster")
     latest = latest.sort_values("date")
 
     avg = latest_averages(df)
