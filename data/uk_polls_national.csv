@@ -1,5 +1,7 @@
 date,pollster,client,area,sample_size,Lab,Con,Ref,LD,Grn,SNP,PC,RB,Others,survey_start
 2026-09-07,YouGov,The Times/Sky News,GB,2371,23.0,20.0,23.0,11.0,12.0,3.0,1.0,4.0,2.0,2026-09-06
+2026-09-06,Freshwater Strategy,City AM,GB,1249,26.0,20.0,25.0,11.0,11.0,2.0,,,4.0,2026-09-04
+2026-09-06,More in Common,N/A,GB,2130,24.0,22.0,23.0,12.0,9.0,2.0,1.0,6.0,1.0,2026-09-04
 2026-09-04,Opinium,The Observer,GB,2003,28.0,18.0,24.0,11.0,11.0,3.0,1.0,,4.0,2026-09-02
 2026-09-02,Find Out Now,N/A,GB,2280,26.0,20.0,21.0,10.0,14.0,3.0,1.0,,6.0,2026-09-02
 2026-09-01,YouGov,The Times/Sky News,GB,2244,23.0,20.0,23.0,12.0,13.0,3.0,1.0,3.0,1.0,2026-08-31
