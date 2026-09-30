@@ -1,4 +1,6 @@
 date,pollster,client,area,sample_size,Lab,Con,Ref,LD,Grn,SNP,PC,RB,Others,survey_start
+2026-09-29,Survation,N/A,UK,1548,29.0,19.0,23.0,9.0,9.0,3.0,1.0,2.0,4.0,2026-09-29
+2026-09-28,YouGov,The Times/Sky News,GB,2310,24.0,19.0,25.0,12.0,11.0,2.0,1.0,3.0,2.0,2026-09-27
 2026-09-25,Opinium,The Observer,GB,2050,28.0,17.0,24.0,10.0,10.0,3.0,1.0,,6.0,2026-09-23
 2026-09-24,BMG Research,The i Paper,GB,1515,28.0,20.0,23.0,8.0,9.0,3.0,1.0,7.0,1.0,2026-09-23
 2026-09-23,Find Out Now,N/A,GB,2559,24.0,19.0,23.0,12.0,13.0,2.0,1.0,,6.0,2026-09-23
